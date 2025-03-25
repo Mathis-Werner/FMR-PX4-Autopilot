@@ -69,11 +69,21 @@ void Ekf::controlMagFusion(const imuSample &imu_sample)
 
 			_state.mag_B.zero();
 			resetMagBiasCov();
+			_state.mag_I.zero();
+			resetMagEarthCov();
 
 			stopMagFusion();
 
 			_mag_lpf.reset(mag_sample.mag);
 			_mag_counter = 1;
+
+			if (!_control_status.flags.in_air
+			    && ((_params.mag_fusion_type == MagFuseType::INIT)
+				|| (_params.mag_fusion_type == MagFuseType::AUTO)
+				|| (_params.mag_fusion_type == MagFuseType::HEADING))) {
+				// Clear yaw alignment to force a reset when mag calibration changed
+				_control_status.flags.yaw_align = false;
+			}
 
 		} else {
 			_mag_lpf.update(mag_sample.mag);
