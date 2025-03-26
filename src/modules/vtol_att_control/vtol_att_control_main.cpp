@@ -432,9 +432,7 @@ VtolAttitudeControl::Run()
 			(_vtol_vehicle_status.vehicle_vtol_state != _prev_published_vtol_vehicle_status.vehicle_vtol_state) ||
 			(_vtol_vehicle_status.fixed_wing_system_failure != _prev_published_vtol_vehicle_status.fixed_wing_system_failure);
 
-		const bool time_to_publish = hrt_absolute_time() - _prev_published_vtol_vehicle_status.timestamp >= 1_s;
-
-		if (vtol_vehicle_status_changed || time_to_publish) {
+		if (vtol_vehicle_status_changed || hrt_elapsed_time(&_prev_published_vtol_vehicle_status.timestamp) >= 1_s) {
 			_vtol_vehicle_status.timestamp = hrt_absolute_time();
 			_vtol_vehicle_status_pub.publish(_vtol_vehicle_status);
 			_prev_published_vtol_vehicle_status = _vtol_vehicle_status;
