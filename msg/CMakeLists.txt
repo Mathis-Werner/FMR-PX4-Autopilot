@@ -221,6 +221,8 @@ set(msg_files
 	VtolVehicleStatus.msg
 	Wind.msg
 	YawEstimatorStatus.msg
+	SimulinkCustomMessage.msg
+	FmrLog.msg
 )
 list(SORT msg_files)
 
