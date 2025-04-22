@@ -61,3 +61,4 @@
 [submodule "src/modules/mavlink/mavlink"]
 	path = src/modules/mavlink/mavlink
 	url = https://github.com/Mathis-Werner/FMR-mavlink.git
+	branch = v1.14.3-FMR-mavlink
