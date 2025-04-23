@@ -3060,6 +3060,48 @@ MavlinkReceiver::handle_message_gimbal_device_attitude_status(mavlink_message_t 
 }
 
 void
+
+MavlinkReceiver::handle_message_fmr_sensors(mavlink_message_t *msg)
+
+{
+
+	if ((msg->sysid != mavlink_system.sysid) || (msg->compid == mavlink_system.compid)) {
+
+		return;
+
+	}
+
+  
+
+	mavlink_fmr_sensors_t fmr_mav_mavlink;
+
+	mavlink_msg_fmr_sensors_decode(msg, &fmr_mav_mavlink);
+
+  
+
+	fmr_mav_s fmr_mav{};
+
+	fmr_mav.timestamp = hrt_absolute_time();
+
+  
+
+	fmr_mav.sensor_1 = (float)fmr_mav_mavlink.sens_1;
+
+	fmr_mav.sensor_2 = (float)fmr_mav_mavlink.sens_2;
+
+	fmr_mav.sensor_3 = (float)fmr_mav_mavlink.sens_3;
+
+	fmr_mav.sensor_4 = (float)fmr_mav_mavlink.sens_4;
+
+	fmr_mav.sensor_5 = (float)fmr_mav_mavlink.sens_5;
+
+  
+
+	_fmr_mav_pub.publish(fmr_mav);
+
+}
+
+void
 MavlinkReceiver::run()
 {
 	/* set thread name */
