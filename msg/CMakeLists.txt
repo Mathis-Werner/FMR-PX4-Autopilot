@@ -223,6 +223,7 @@ set(msg_files
 	YawEstimatorStatus.msg
 	SimulinkCustomMessage.msg
 	FmrLog.msg
+	FmrMav.msg
 )
 list(SORT msg_files)
 
