@@ -274,7 +274,7 @@ MavlinkReceiver::handle_message(mavlink_message_t *msg)
 		handle_message_statustext(msg);
 		break;
 
-	case MAVLINK_MSG_ID_TEST_MSG:
+	case MAVLINK_MSG_ID_FMR_SENSORS:
 		handle_message_fmr_sensors(msg);
 		break;
 
@@ -3068,14 +3068,6 @@ void
 MavlinkReceiver::handle_message_fmr_sensors(mavlink_message_t *msg)
 
 {
-
-	if ((msg->sysid != mavlink_system.sysid) || (msg->compid == mavlink_system.compid)) {
-
-		return;
-
-	}
-
-  
 
 	mavlink_fmr_sensors_t fmr_mav_mavlink;
 
